@@ -1,0 +1,6 @@
+<resources>
+    <style name="Theme.ShellUI" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
