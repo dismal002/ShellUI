@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#121212">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ShellUI Script Usage Guide"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To use ShellUI from /data/local/tmp, use the following patterns. These examples show how to wait for user input and handle the output."
+            android:textColor="#CCCCCC"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Text Input Example"
+            android:textColor="#2196F3"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="#!/system/bin/sh\nOUT=/data/local/tmp/ui_out\nrm -f $OUT\nam start -n com.dismal.shellui/.ShellActivity -e action input -e title 'Name' -e message 'Enter your name:' -e output $OUT\nwhile [ ! -f $OUT ]; do sleep 0.1; done\nNAME=$(cat $OUT)\necho 'Hello, $NAME!'"
+            android:textColor="#00FF00"
+            android:background="#1E1E1E"
+            android:padding="8dp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2. Dialog with Buttons"
+            android:textColor="#2196F3"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="#!/system/bin/sh\nOUT=/data/local/tmp/ui_out\nrm -f $OUT\nam start -n com.dismal.shellui/.ShellActivity -e action dialog -e title 'Confirm' -e message 'Proceed?' -e buttons 'Yes,No' -e output $OUT\nwhile [ ! -f $OUT ]; do sleep 0.1; done\nCHOICE=$(cat $OUT)\necho 'User chose: $CHOICE'"
+            android:textColor="#00FF00"
+            android:background="#1E1E1E"
+            android:padding="8dp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3. Form Example"
+            android:textColor="#2196F3"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="#!/system/bin/sh\nOUT=/data/local/tmp/ui_out\nSCHEMA='Username:text;Role:radio:Admin,User;Agreed:checkbox'\nam start -n com.dismal.shellui/.ShellActivity -e action form -e title 'Register' -e schema &quot;$SCHEMA&quot; -e output $OUT\nwhile [ ! -f $OUT ]; do sleep 0.1; done\ncat $OUT"
+            android:textColor="#00FF00"
+            android:background="#1E1E1E"
+            android:padding="8dp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4. Variable Capture (No File)"
+            android:textColor="#2196F3"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="# Clear logs, start, and capture\nlogcat -c\nam start -W -n com.dismal.shellui/.ShellActivity -e action input -e title 'Fast' &gt; /dev/null\nRES=$(logcat -d -s ShellUI_Result -b main | grep 'ShellUI_Result' | tail -n 1 | cut -d: -f3 | xargs)\necho 'Captured: $RES'"
+            android:textColor="#00FF00"
+            android:background="#1E1E1E"
+            android:padding="8dp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note: Use 'am start -n com.dismal.shellui/.ShellActivity' followed by the required extras. Use a loop to poll for the output file specified with -e output, or use the Logcat method shown above to capture directly into a variable."
+            android:textColor="#AAAAAA"
+            android:textSize="12sp"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

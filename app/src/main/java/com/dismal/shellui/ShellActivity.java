@@ -1,7 +1,8 @@
-package com.shellui;
+package com.dismal.shellui;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,8 +32,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import com.android.colorpicker.ColorPickerDialog;
-import com.android.colorpicker.ColorPickerSwatch;
+// import com.android.colorpicker.ColorPickerDialog;
+// import com.android.colorpicker.ColorPickerSwatch;
 
 public class ShellActivity extends AppCompatActivity {
 
@@ -316,34 +317,13 @@ public class ShellActivity extends AppCompatActivity {
     }
 
     private void showColorPicker(Intent intent) {
-        String title = intent.getStringExtra("title");
-        SeekBar bar = new SeekBar(this);
-        bar.setMax(255);
-        bar.setProgress(initial);
-        layout.addView(bar);
-
-        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                View l = (View) seekBar.getParent();
-                SeekBar r = (SeekBar) l.getChildAt(2);
-                SeekBar g = (SeekBar) l.getChildAt(4);
-                SeekBar b = (SeekBar) l.getChildAt(6);
-                preview.setBackgroundColor(Color.rgb(r.getProgress(), g.getProgress(), b.getProgress()));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        return bar;
+        // Color picker logic removed as :aosp-colorpicker module is missing
+        Toast.makeText(this, "Color picker not available", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void writeResult(String result) {
+        android.util.Log.i("ShellUI_Result", result);
         if (outputFilePath == null)
             return;
         try (FileOutputStream fos = new FileOutputStream(new File(outputFilePath))) {
